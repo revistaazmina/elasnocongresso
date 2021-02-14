@@ -5,6 +5,8 @@ import os.path  # paths do sistema
 import os       # ler variaveis de ambiente
 import time     # sleep
 from dotenv import load_dotenv # ler variaveis de ambiente do arquivo .env
+import random
+from datetime import datetime
 
 load_dotenv()
 
@@ -29,6 +31,7 @@ if not os.getenv("ACCESS_SECRET"):
     print("Faltando configurar ENV ACCESS_SECRET")
     raise
 
+print ("Iniciando... " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 dirName = 'dados/tweets-enviados/'
 if not os.path.exists(dirName):
@@ -57,7 +60,7 @@ for tweet in tweets:
         json.dump(response._json, outfile)
 
     if bool(os.getenv("RANDOM_SLEEP_BETWEEN_TWEETS")):
-        time.sleep(300) # espera 5 minutos
+        time.sleep(random.randint(60, 300)) # entre 1 minuto e 5
 
 
 print ("Todos tweets enviados com sucesso!")
